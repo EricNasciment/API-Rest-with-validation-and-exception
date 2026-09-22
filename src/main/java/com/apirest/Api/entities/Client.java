@@ -16,7 +16,6 @@ public class Client {
     private String name;
     private String cpf;
     private Double income;
-
     private Instant birthDate;
     private Integer children;
 
