@@ -6,6 +6,8 @@ import java.time.Instant;
 
 public class ClientDto {
 
+
+    private Long id;
     private String name;
     private String cpf;
     private Double income;
@@ -28,6 +30,14 @@ public class ClientDto {
         this.income = entity.getIncome();
         this.birthDate = entity.getBirthDate();
         this.children = entity.getChildren();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -66,7 +76,14 @@ public class ClientDto {
         return children;
     }
 
+
     public void setChildren(Integer children) {
         this.children = children;
     }
+
+
+
+
 }
+
+
