@@ -15,7 +15,9 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Nome não pode ser nulo")
     private String name;
+    @Size(min = 12,max = 12,message = "cpf deve ter 12 caracteres")
     private String cpf;
     private Double income;
     private Instant birthDate;

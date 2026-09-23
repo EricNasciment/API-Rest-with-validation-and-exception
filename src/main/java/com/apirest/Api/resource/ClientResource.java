@@ -3,6 +3,7 @@ package com.apirest.Api.resource;
 
 import com.apirest.Api.dto.ClientDto;
 import com.apirest.Api.servise.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,7 @@ public class ClientResource {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDto> insert(@RequestBody ClientDto dto){
+    public ResponseEntity<ClientDto> insert(@Valid @RequestBody ClientDto dto){
          ClientDto entity = clientService.insert(dto);
          URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                  .buildAndExpand(dto.getId()).toUri();
@@ -43,7 +44,7 @@ public class ClientResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDto> update(@PathVariable Long id,@RequestBody ClientDto dto){
+    public ResponseEntity<ClientDto> update(@Valid @PathVariable Long id,@RequestBody ClientDto dto){
         ClientDto entity = clientService.update(id,dto);
         return  ResponseEntity.ok().body(entity);
     }
