@@ -2,7 +2,9 @@ package com.apirest.Api.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.Instant;
 import java.util.Date;
@@ -17,9 +19,11 @@ public class Client {
     private Long id;
     @NotBlank(message = "Nome não pode ser nulo")
     private String name;
+    @Column(unique = true)
     @Size(min = 12,max = 12,message = "cpf deve ter 12 caracteres")
     private String cpf;
     private Double income;
+    @PastOrPresent(message = "Não permitido datas futuras")
     private Instant birthDate;
     private Integer children;
 

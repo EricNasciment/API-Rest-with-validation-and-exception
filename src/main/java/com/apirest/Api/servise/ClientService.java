@@ -36,10 +36,14 @@ public class ClientService {
 
     @Transactional
     public ClientDto insert(ClientDto dto){
+        try{
        Client entity = new Client();
        copyDtoToEntity(entity,dto);
       entity=  clientRepository.save(entity);
-       return new ClientDto(entity);
+       return new ClientDto(entity);}
+        catch (DataIntegrityViolationException e){
+            throw new DataBaseException("Este cpf ja esta cadastrado");
+        }
     }
 
     @Transactional

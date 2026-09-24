@@ -34,7 +34,7 @@ public class ExceptionsHandler {
         HttpStatus status = HttpStatus.CONFLICT;
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
-        err.setError("Entidade não pode ser deletada,Conflito na DataBase");
+        err.setError("Conflito no Banco de dados");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status.value()).body(err);
