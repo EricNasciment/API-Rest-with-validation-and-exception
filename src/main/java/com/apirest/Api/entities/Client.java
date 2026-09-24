@@ -17,14 +17,10 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 3,max = 16,message = "Campo deve conter 3 a 16 caracteres")
-    @NotBlank(message = "Nome não pode ser nulo")
     private String name;
     @Column(unique = true)
-    @Size(min = 12,max = 12,message = "cpf deve ter 12 caracteres")
     private String cpf;
     private Double income;
-    @PastOrPresent(message = "Não permitido datas futuras")
     private Instant birthDate;
     private Integer children;
 

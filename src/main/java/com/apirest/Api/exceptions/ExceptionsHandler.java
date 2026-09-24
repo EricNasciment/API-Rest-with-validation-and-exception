@@ -47,9 +47,9 @@ public class ExceptionsHandler {
 
 
     }
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandartError> methodArgumentNotValid(
-            ConstraintViolationException e,
+            MethodArgumentNotValidException e,
             HttpServletRequest requestst){
         ValidationError err = new ValidationError();
         HttpStatus status =  HttpStatus.UNPROCESSABLE_ENTITY;
@@ -59,9 +59,8 @@ public class ExceptionsHandler {
         err.setPath(requestst.getRequestURI());
 
 
-        for(ConstraintViolation<?> violation: e.getConstraintViolations()){
-            err.addError( violation.getPropertyPath().toString(),
-                    violation.getMessage());
+        for(FieldError f: e.getBindingResult().getFieldErrors()){
+            err.addError(f.getField(),f.getDefaultMessage());
         }
         return  ResponseEntity.status(status.value()).body(err);
     }
