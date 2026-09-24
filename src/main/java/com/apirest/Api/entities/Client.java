@@ -17,6 +17,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 3,max = 16,message = "Campo deve conter 3 a 16 caracteres")
     @NotBlank(message = "Nome não pode ser nulo")
     private String name;
     @Column(unique = true)

@@ -1,8 +1,14 @@
 package com.apirest.Api.exceptions;
 
+import com.apirest.Api.validation.FieldMessage;
+import com.apirest.Api.validation.ValidationError;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -40,5 +46,23 @@ public class ExceptionsHandler {
         return ResponseEntity.status(status.value()).body(err);
 
 
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<StandartError> methodArgumentNotValid(
+            ConstraintViolationException e,
+            HttpServletRequest requestst){
+        ValidationError err = new ValidationError();
+        HttpStatus status =  HttpStatus.UNPROCESSABLE_ENTITY;
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Dados invaliddos ");
+        err.setPath(requestst.getRequestURI());
+
+
+        for(ConstraintViolation<?> violation: e.getConstraintViolations()){
+            err.addError( violation.getPropertyPath().toString(),
+                    violation.getMessage());
+        }
+        return  ResponseEntity.status(status.value()).body(err);
     }
 }
